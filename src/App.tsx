@@ -4,6 +4,7 @@ import { Drawer, LinearProgress, Grid, Badge, } from '@material-ui/core';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { Wrapper, StyledButton } from './App.styles';
 import Item from './Item/Item';
+import Cart from './Cart/Cart';
 
 export type CartItemType = {
   id: number;
@@ -30,7 +31,7 @@ const App = () => {
   const getTotalItems = (items: CartItemType[]) => 
   items.reduce((ack: number, item) => ack + item.amount, 0);
   const handleAddToCart = (clickedItem: CartItemType) => null;
-  const hsndleRemoveFromCart = () => null;
+  const handleRemoveFromCart = () => null;
 
   if (isLoading) return <LinearProgress />;
   if (error) return <div>Something went wrong...</div>;
@@ -38,7 +39,7 @@ const App = () => {
   return (
     <Wrapper>
       <Drawer anchor='right' open={cartOpen} onClose={() => setCartOpen(false)}>
-        Cart goes here
+        <Cart cartItems={cartItems} addToCart={handleAddToCart} removeFromCart={handleRemoveFromCart}/>
       </Drawer>
       <StyledButton onClick={() => setCartOpen(true)}>
         <Badge badgeContent={getTotalItems(cartItems)} color='error'>
